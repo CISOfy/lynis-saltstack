@@ -1,0 +1,5 @@
+lynis:
+  install_plugins: False
+  license_key: None
+  upload_server: portal.cisofy.com 
+  use_customers_repo: False

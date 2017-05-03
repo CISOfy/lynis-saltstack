@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{% set lynis = salt['pillar.get']('lynis', {
+    'lookup': salt['grains.filter_by']({
+        'Debian': {
+            'pkg': 'lynis',
+        },
+        'RedHat': {
+            'pkg': 'lynis',
+        },
+    }),
+    'config': salt['grains.filter_by']({
+        'Debian': {
+            'config-dir': '/etc/lynis',
+        },
+    }),
+    'repo': {
+        'install_plugins': salt['pillar.get']('lynis:install_plugins', False),
+        'key_url': 'https://packages.cisofy.com/keys/cisofy-software-public.key',
+        'license_key': salt['pillar.get']('lynis:license_key', None),
+        'use_customers_repo': salt['pillar.get']('lynis:use_customers_repo', False),
+    },
+}, merge=True) %}
